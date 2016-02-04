@@ -18,6 +18,9 @@ public class Lab2a {
                 if ( tempVal < lastVal ){
                     leastValuable = i;
                     lastVal = tempVal;
+                    if(tempVal == 0){ // if 0, no point in looping anymore
+                        break;
+                    }
                 }
             }
             int index = 0;
@@ -30,6 +33,7 @@ public class Lab2a {
             }
             resultPoly = tempPoly;
         }
+        System.out.println(resultPoly.length + "");
         return resultPoly;
     }
 }
