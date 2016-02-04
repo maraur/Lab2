@@ -8,5 +8,7 @@ public class Lab2b {
     //todo while antalet punkter större än k
     //todo tag bort den minst värdefulla
     //todo beräkna om den borttagna punktens närmaste grannars värdemått
+
+    return null; //TODO REMOVE!!!!!!!!!
   }
 }

@@ -37,8 +37,12 @@ public class DLList<E> {
      */
     public Node addFirst(E e) {
         Node newNode = new Node(e);
-
-        // TODO
+        if( first != null) {
+            first.prev = newNode;
+            newNode.next = first;
+        }
+        first = newNode;
+        return first;
     }
 
     /** inserts an element at then end of the list
@@ -101,8 +105,15 @@ public class DLList<E> {
      * @param l   then node containing the element that will be removed, must be non-null and a node belonging to this list
      */
     public void remove(Node l) {
-        l.getPrev().next = l.getNext();
-        l.getNext().prev = l.getPrev();
-        // TODO a way to remove l?
+        if ( l == first ){
+            l.getNext().prev = null;
+            first = l.getNext();
+        } else if (l == last){
+            l.getPrev().next = null;
+            last = l.getPrev();
+        } else {
+            l.getPrev().next = l.getNext();
+            l.getNext().prev = l.getPrev();
+        }
     }
 }
