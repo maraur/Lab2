@@ -5,28 +5,27 @@ public class Lab2a {
     {
         double[] resultPoly = poly;
         int leastValuable = 0;
-        double tempVal = 0;
-        double lastVal = 0;
+        double tempVal;
+        double lastVal;
 
-        while(resultPoly.length > k){
+        while(resultPoly.length > k*2){
+            lastVal = 10000;
             //L - P = L1, P - R = L2, L - R = L3, L1 + L2 - L3 = val
-            //todo figure out a nicer way... too many pythagoras?
-            for (int i = 1; i < poly.length/2 - 1; i++){ //ignores end points
-                tempVal = Math.sqrt(Math.pow((poly[(i-1)*2] - poly[i*2]), 2.0) + Math.pow(poly[(i-1)*2+1] - poly[i*2+1], 2.0)); //L1 = L-P
-                tempVal += Math.sqrt(Math.pow((poly[i*2] - poly[(i+1)*2]), 2.0) + Math.pow(poly[(i*2)+1] - poly[(i+1)*2+1], 2.0)); //L2 = P-R
-                tempVal -= Math.sqrt(Math.pow((poly[(i-1)*2] - poly[(i+1)*2]), 2.0) + Math.pow(poly[(i-1)*2+1] - poly[(i+1)*2+1], 2.0)); //L3 = L-R
+            for (int i = 1; i < resultPoly.length/2 - 1; i++){ //ignores end points
+                tempVal = Math.hypot((resultPoly[(i-1)*2] - resultPoly[i*2]), resultPoly[(i-1)*2+1] - resultPoly[i*2+1]);
+                tempVal += Math.hypot((resultPoly[i*2] - resultPoly[(i+1)*2]), resultPoly[(i*2)+1] - resultPoly[(i+1)*2+1]);
+                tempVal -= Math.hypot((resultPoly[(i-1)*2] - resultPoly[(i+1)*2]), resultPoly[((i-1)*2)+1] - resultPoly[(i+1)*2+1]);
                 if ( tempVal < lastVal ){
                     leastValuable = i;
                     lastVal = tempVal;
                 }
             }
-            //todo there must be a better way
             int index = 0;
-            double[] tempPoly = new double[resultPoly.length -2]; //temp list with correct size
-            for( int i = 0; i < resultPoly.length/2-1; i++ ){ // adds all but the least useful element into a new array
+            double[] tempPoly = new double[resultPoly.length-2]; //temp list with correct size
+            for( int i = 0; i < resultPoly.length; i++ ){ // adds all but the least useful element into a new array
                 if (!( i == leastValuable*2 || i == leastValuable*2 + 1 )){
-                    index ++;
                     tempPoly[index] = resultPoly[i];
+                    index++;
                 }
             }
             resultPoly = tempPoly;
