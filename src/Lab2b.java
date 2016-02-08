@@ -13,7 +13,7 @@ public class Lab2b {
         double[] firstArray = {100000, poly[0], poly[1], 0};
         list.addFirst(firstArray); //Kan helt onödig? En idé vore att skita i dem helt eftersom de inte ska tas bort och lägg till dem i slutet bara
 
-        for(int i = 2; i < poly.length-2; i = i+2){ //skippa första och sista noden
+        for(int i = 2; i < poly.length/2 -2; i = i+2){ //skippa första och sista noden
             double valMeas = Math.hypot((poly[(i-1)*2] - poly[i*2]), poly[(i-1)*2+1] - poly[i*2+1]);
             valMeas += Math.hypot((poly[i*2] - poly[(i+1)*2]), poly[(i*2)+1] - poly[(i+1)*2+1]);
             valMeas -= Math.hypot((poly[(i-1)*2] - poly[(i+1)*2]), poly[((i-1)*2)+1] - poly[(i+1)*2+1]);
@@ -69,12 +69,12 @@ public class Lab2b {
         public int compare(DLList.Node o1, DLList.Node o2) {
             double[] o1list = (double[])o1.elt; // något i den här stilen för att kunna välja specifikt ur index?
             double[] o2list = (double[])o2.elt;
-            /* Less efficient (?) but might be a better choice
+            //Less efficient (?) but might be a better choice
             if(o1list[0] > o2list[0]){
                 return 1;
             }else if(o1list[0] < o2list[0]){
                 return -1;
-            }*/
+            }
             //return (int)(o1list[0] - o2list[0]); //might be good, but if differences < 1 then it will returns 0 which is BAD
             return 0;
         }
