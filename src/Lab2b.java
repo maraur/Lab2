@@ -19,7 +19,7 @@ public class Lab2b {
             double[] nodeArray = {valMeas, poly[2*i], poly[2*i + 1], i};
             prevListNode = list.insertAfter(nodeArray, prevListNode);
             queue.add(prevListNode);
-            System.out.println(poly[i * 2] + ", "+ poly[(i * 2) + 1] );
+            System.out.println(poly[i * 2] + ", "+ poly[(i * 2) + 1] ); //todo remove
         }
 
         while (queue.size() > k - 2) { //k-2 eftersom vi kan lägga till start och slut precis innan vi returnerar
@@ -52,7 +52,7 @@ public class Lab2b {
         while (iter.hasNext()) {
             indexQueue.add(iter.next());
         }
-        System.out.println(indexQueue.size());
+        System.out.println(indexQueue.size()); //todo remove
         double[] resultPoly = new double[k * 2];
 
         resultPoly[0] = poly[0];
@@ -64,9 +64,9 @@ public class Lab2b {
             DLList.Node current = indexQueue.poll();
             resultPoly[i*2] = ((double[]) current.elt)[1];
             resultPoly[i*2 + 1] = ((double[]) current.elt)[2];
-            System.out.println(((double[])current.elt)[3] +" index" );
+            System.out.println(((double[])current.elt)[3] +" index" ); //todo remove
         }
-        System.out.println(resultPoly.length);
+        System.out.println(resultPoly.length); //todo remove
         return resultPoly;
     }
 
