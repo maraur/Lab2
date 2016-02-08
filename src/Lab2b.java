@@ -2,18 +2,9 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
-
-
-
 public class Lab2b {
     public static double[] simplifyShape(double[] poly, int k)
     {
-        //todo beräkna värdemåttet för varje intern punkt
-    /*
-    Skulle det kunna vara ett alternativ att:
-    Beräkna värdemått, lägg i double[], lägg även x,y och index?
-    Möjligt med exempelvis
-    */
         DLList list = new DLList();
         Comparator<DLList.Node> comparator = new NodeComparator();
         PriorityQueue<DLList.Node> queue = new PriorityQueue<>(poly.length/2, comparator); //maybe too long?
@@ -59,27 +50,9 @@ public class Lab2b {
                 }
             }
         }
-        //todo while antalet punkter större än k
-        //todo tag bort den minst värdefulla
-        /*
-        Ta bort den första i queue, med list.remove()?
-         */
         //todo beräkna om den borttagna punktens närmaste grannars värdemått
         /*
-        Håll reda på index för noden som togs bort och kalla den för i.
-        Leta reda på de punkter med index i-1 och i+1 (kommer ligga i [3] i deras lista), ta ut dem ur priorityqueue och
-        räkna om deras värdemått, stoppa tillbaka dem igen? EDIT: verkar vara enda sättet eftersom kön inte uppdaterar dynamiskt
-        Kan räkna ut nu värdeindex med:
-        double[] prevNode = (double[])node.getPrev().elt;
-        double[] nextNode = (double[])node.getNext().elt;
-        double valMeas = Math.hypot((prevNode[1] - node[1]), prevNode[2] - node[2]);
-        valMeas += Math.hypot((node[1] - nextNode[1]), node[2] - nextNode[2]);
-        valMeas -= Math.hypot((prevNode[1] - nextNode[1]), prevNode[2] - nextNode[2]);
-        node[0] = valMeas;
-        queue.add(node);
-
-        Hur hittar man rätt noder dock, iterator?
-
+        EDIT: verkar vara enda sättet eftersom kön inte uppdaterar dynamiskt
          */
         //todo Lägg tillbaka alla kvarvarande element i en ny double[] som kan returneras
         /*
