@@ -41,6 +41,9 @@ public class DLList<E> {
             first.prev = newNode;
             newNode.next = first;
         }
+        if( last == null){
+            last = newNode;
+        }
         first = newNode;
         return first;
     }
@@ -54,6 +57,9 @@ public class DLList<E> {
         if( last != null) {
             last.next = newNode;
             newNode.prev = last;
+        }
+        if( first == null){
+            first = newNode;
         }
         last = newNode;
         return last;
