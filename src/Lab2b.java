@@ -15,11 +15,11 @@ public class Lab2b {
     */
         DLList list = new DLList();
         Comparator<DLList.Node> comparator = new NodeComparator();
-        PriorityQueue<DLList.Node> queue = new PriorityQueue<DLList.Node>(poly.length/2, comparator); //maybe too long?
+        PriorityQueue<DLList.Node> queue = new PriorityQueue<>(poly.length/2, comparator); //maybe too long?
         //poly.length/2 - 2 might be better as end points maybe should be excluded
 
         double[] firstArray = {100000, poly[0], poly[1], 0};
-        list.addFirst(firstArray); //Not sure if even needed...... Kanske ska skita i dem helt eftersom de inte ska tas bort
+        list.addFirst(firstArray); //Kan helt onödig? En idé vore att skita i dem helt eftersom de inte ska tas bort och lägg till dem i slutet bara
 
         for(int i = 2; i < poly.length-2; i = i+2){ //skippa första och sista noden
             double valMeas = Math.hypot((poly[(i-1)*2] - poly[i*2]), poly[(i-1)*2+1] - poly[i*2+1]);
@@ -34,6 +34,7 @@ public class Lab2b {
     Behöver en comparator som ska jämföra noder, men hur ska man jämföra dem?
     Har ju svårt att jämföra deras elt när den är E
     Typkonvertera?
+    EDIT: Det är så jag tänkt nu, se compare i NodeComparator
      */
 
         //todo while antalet punkter större än k
@@ -43,13 +44,25 @@ public class Lab2b {
          */
         //todo beräkna om den borttagna punktens närmaste grannars värdemått
         /*
+        Håll reda på index för noden som togs bort och kalla den för i.
         Leta reda på de punkter med index i-1 och i+1 (kommer ligga i [3] i deras lista), ta ut dem ur priorityqueue och
-        räkna om deras värdemått, stoppa tillbaka dem igen?
-         */
+        räkna om deras värdemått, stoppa tillbaka dem igen? EDIT: verkar vara enda sättet eftersom kön inte uppdaterar dynamiskt
+        Kan räkna ut nu värdeindex med:
+        double[] prevNode = (double[])node.getPrev().elt;
+        double[] nextNode = (double[])node.getNext().elt;
+        double valMeas = Math.hypot((prevNode[1] - node[1]), prevNode[2] - node[2]);
+        valMeas += Math.hypot((node[1] - nextNode[1]), node[2] - nextNode[2]);
+        valMeas -= Math.hypot((prevNode[1] - nextNode[1]), prevNode[2] - nextNode[2]);
+        node[0] = valMeas;
+        queue.add(node);
 
+        Hur hittar man rätt noder dock, iterator?
+
+         */
+        //todo Lägg tillbaka alla kvarvarande element i en ny double[] som kan returneras
         return poly; //TODO REMOVE!!!!!!!!!
     }
-    //TODO Get this working, needed for possibility of making priorityqueue
+    //TODO Get this working, needed for making priorityqueue
     private static class NodeComparator implements Comparator<DLList.Node>{
 
         @Override
@@ -62,7 +75,7 @@ public class Lab2b {
             }else if(o1list[0] < o2list[0]){
                 return -1;
             }*/
-            //return (int)(o1list[0] - o2list[0]); //might be good, but if differences are < 1 then it will returns 0 which is BAD
+            //return (int)(o1list[0] - o2list[0]); //might be good, but if differences < 1 then it will returns 0 which is BAD
             return 0;
         }
     }
