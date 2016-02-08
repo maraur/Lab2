@@ -33,7 +33,6 @@ public class Lab2a {
             }
             resultPoly = tempPoly;
         }
-        System.out.println(resultPoly.length + "");
         return resultPoly;
     }
 }
