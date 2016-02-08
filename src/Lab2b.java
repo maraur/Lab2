@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 
@@ -36,7 +37,28 @@ public class Lab2b {
     Typkonvertera?
     EDIT: Det är så jag tänkt nu, se compare i NodeComparator
      */
-
+        while (queue.size() > k-2){ //k-2 eftersom vi kan lägga till start och slut precis innan vi returnerar
+            DLList.Node nodeToRemove = queue.poll();
+            int nodeIndex = (int)((double[])nodeToRemove.elt)[3]; //tar ut index ur noden, tar även bort noden
+            list.remove(nodeToRemove);
+            Iterator<DLList.Node> iter = queue.iterator();
+            int nodesToChange = 2;
+            while(iter.hasNext() && nodesToChange != 0){
+                if ( (((double[])iter.next().getPrev().elt)[3]) == nodeIndex - 1 || (((double[])iter.next().getPrev().elt)[3]) == nodeIndex + 1){
+                    DLList.Node current = iter.next();
+                    queue.remove(current);
+                    double[] node = (double[])current.elt;
+                    double[] prevNode = (double[])current.getPrev().elt;
+                    double[] nextNode = (double[])current.getNext().elt;
+                    double valMeas = Math.hypot((prevNode[1] - node[1]), prevNode[2] - node[2]);
+                    valMeas += Math.hypot((node[1] - nextNode[1]), node[2] - nextNode[2]);
+                    valMeas -= Math.hypot((prevNode[1] - nextNode[1]), prevNode[2] - nextNode[2]);
+                    node[0] = valMeas;
+                    queue.add(current);
+                    nodesToChange--;
+                }
+            }
+        }
         //todo while antalet punkter större än k
         //todo tag bort den minst värdefulla
         /*
@@ -60,6 +82,11 @@ public class Lab2b {
 
          */
         //todo Lägg tillbaka alla kvarvarande element i en ny double[] som kan returneras
+        /*
+        Är det bästa sättet att använda en ny comparator och kö eller genom att helt loopa och hålla på
+        Rent effektivitetsmässigt känns en ny comparator snabbare? Borde kunna lägga in dem i kön med en iterator
+        och sen använda en iterator till för att få tillbaka koordinaterna till en double[] igen
+         */
         return poly; //TODO REMOVE!!!!!!!!!
     }
     //TODO Get this working, needed for making priorityqueue
