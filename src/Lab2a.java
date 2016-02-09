@@ -10,11 +10,12 @@ public class Lab2a {
 
         while(resultPoly.length > k*2){
             lastVal = 10000;
-            //L - P = L1, P - R = L2, L - R = L3, L1 + L2 - L3 = val
             for (int i = 1; i < resultPoly.length/2 - 1; i++){ //ignores end points
-                tempVal = Math.hypot((resultPoly[(i-1)*2] - resultPoly[i*2]), resultPoly[(i-1)*2+1] - resultPoly[i*2+1]);
-                tempVal += Math.hypot((resultPoly[i*2] - resultPoly[(i+1)*2]), resultPoly[(i*2)+1] - resultPoly[(i+1)*2+1]);
-                tempVal -= Math.hypot((resultPoly[(i-1)*2] - resultPoly[(i+1)*2]), resultPoly[((i-1)*2)+1] - resultPoly[(i+1)*2+1]);
+                double[] nodeValues = {resultPoly[(i-1)*2], resultPoly[(i-1)*2 + 1], resultPoly[i*2], resultPoly[i*2 + 1],
+                        resultPoly[(i+1)*2], resultPoly[(i+1)*2 + 1]}; //To reduce the amount of calls for indexes in Poly
+                tempVal = Math.hypot( nodeValues[0] - nodeValues[2], nodeValues[1] - nodeValues[3]);
+                tempVal += Math.hypot( nodeValues[2] -  nodeValues[4],  nodeValues[3] -  nodeValues[5]);
+                tempVal -= Math.hypot( nodeValues[0] -  nodeValues[4],  nodeValues[1] -  nodeValues[5]);
                 if ( tempVal < lastVal ){
                     leastValuable = i;
                     lastVal = tempVal;
